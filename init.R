@@ -4,8 +4,11 @@ install.packages("snowballc") #To reduce words to roots
 install.packages("wordcloud") #To make a word cloud
 install.packages("RColorBrewer")
 install.packages("devtools")
-library(devtools)
 install_github("ropensci/cld2")
+install_github("ropensci/cld3")
+library(devtools)
+library(cld2)
+library(cld3)
 library(syuzhet)
 library(dplyr)
 library(stringi)
@@ -89,8 +92,14 @@ head(dtm_d, 5)
 
 
 
+#Finding Language of all text
+data_eng <- data.frame(lapply(data$text,as.character),stringsAsFactors = FALSE)
+detect_language(data_eng)
 
+data_eng <- data %>% mutate(cld2 = cld2::detect_language(text = text, plain_text = FALSE,lang_code=FALSE), cld3 = cld3::detect_language(text = text))
 
+head(data_eng)
 
+mean(data_eng$cld2=='en')
 
-
+data_eng%>%group_by(cld2)%>%summarise(n())
