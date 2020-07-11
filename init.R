@@ -96,7 +96,7 @@ head(dtm_d, 5)
 data_eng <- data.frame(lapply(data$text,as.character),stringsAsFactors = FALSE)
 detect_language(data_eng)
 
-data_eng <- data %>% mutate(cld2 = cld2::detect_language(text = text, plain_text = FALSE,lang_code=FALSE), cld3 = cld3::detect_language(text = text))
+data_eng <- data %>% mutate(cld2 = cld2::detect_language(text = text, plain_text = FALSE,lang_code=TRUE), cld3 = cld3::detect_language(text = text))
 
 head(data_eng)
 
