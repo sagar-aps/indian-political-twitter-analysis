@@ -3,7 +3,9 @@ install.packages("tm") #To remove stopwords
 install.packages("snowballc") #To reduce words to roots
 install.packages("wordcloud") #To make a word cloud
 install.packages("RColorBrewer")
-
+install.packages("devtools")
+library(devtools)
+install_github("ropensci/cld2")
 library(syuzhet)
 library(dplyr)
 library(stringi)
@@ -69,8 +71,20 @@ for (i in 1:5) {
   writeLines(as.character(corp[[i]]))
 }
 
+#Build Term Document Matrix
 
+corp_dtm <- TermDocumentMatrix(corp)
+inspect(corp_dtm)
 
+dtm_m <- as.matrix(corp_dtm)
+
+# Sort by descearing value of frequency
+dtm_v <- sort(rowSums(dtm_m),decreasing=TRUE)
+dtm_d <- data.frame(word = names(dtm_v),freq=dtm_v)
+# Display the top 5 most frequent words
+head(dtm_d, 5)
+
+#Making Word clouds
 
 
 
