@@ -7,3 +7,6 @@ multmerge = function(path){
 full_data = multmerge("D:/G Drive Data/Projects/indian-political-twitter-analysis/tweet-data/raw")
 
 write.csv(full_data,file = "FullData.csv")
+
+#To read the file already made
+full_data <- read.csv("/Users/ekaterinamatyushina/Downloads/FullData.csv")
